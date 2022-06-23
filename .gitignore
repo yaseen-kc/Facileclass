@@ -1,0 +1,10 @@
+*env
+*.env.Include
+*.env.Lib
+*.env.Scripts
+*.env.pyvenv.cfg
+.__pycache__
+client_secrets.json
+creds.json
+creds.json
+client_secrets.json

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassWork</title>
+    <link rel="stylesheet" href="{% static 'workclass.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css" rel="stylesheet" />
+    <script>
+        $(document).on('click', '.panel-heading span.clickable', function(e) {
+            var $this = $(this);
+            if (!$this.hasClass('panel-collapsed')) {
+                $this.parents('.panel').find('.panel-body').slideUp();
+                $this.addClass('panel-collapsed');
+                $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+
+            } else {
+                $this.parents('.panel').find('.panel-body').slideDown();
+                $this.removeClass('panel-collapsed');
+                $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+
+            }
+        })
+        $(document).ready(function() {
+
+            // Gets the video src from the data-src on each button
+
+            var $videoSrc;
+            $('.video-btn').click(function() {
+                $videoSrc = $(this).data("src");
+            });
+            console.log($videoSrc);
+
+
+
+            // when the modal is opened autoplay it  
+            $('#myModal').on('shown.bs.modal', function(e) {
+
+                // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+                $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
+            })
+
+
+
+            // stop playing the youtube video when I close the modal
+            $('#myModal').on('hide.bs.modal', function(e) {
+                // a poor man's stop video
+                $("#video").attr('src', $videoSrc);
+            })
+
+
+
+
+
+
+            // document ready  
+        });
+
+
+
+
+        function myFunction() {
+            /* Get the text field */
+            var copyText = document.getElementById("copythis");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.value);
+
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
+        }
+    </script>
+    <style>
+        .modal-dialog {
+            max-width: 800px;
+            margin: 30px auto;
+        }
+        
+        .modal-body {
+            position: relative;
+            padding: 0px;
+        }
+        
+        .close {
+            position: absolute;
+            right: -30px;
+            top: 0;
+            z-index: 999;
+            font-size: 2rem;
+            font-weight: normal;
+            color: #fff;
+            opacity: 1;
+        }
+    </style>
+</head>
+<script>
+    function removeb(){
+    var a={{context.presntformate}};
+    var b={{mm.duedate}};
+    alert(a);
+    if(a>b)
+    {
+        document.getElementById("submitassigment").style.display = "None";
+    }
+    }
+
+</script>
+<body onload="removeb()">
+    <script>
+        { %
+            if context.popuplink %
+        }
+        window.location.replace("{{context.popuplink}}"); { % endif %
+        }
+    </script>
+    <section>
+        <div class="container mt-0 navbar justify-content-center fixed-top navbar-light bg-light ">
+            <ul class="nav twonav ">
+
+                <li class="nav-item">
+                    <a class="nav-link navbar-brand  " style="padding-left :50px; color:black;" href="/studl/c/{{context.url}}">Class work</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " style="padding-left :50px; color:black;" href="/studl/p/{{context.url}}">People</a>
+                </li>
+            </ul>
+        </div>
+        <hr>
+
+    </section>
+    <br>
+
+    <section>
+        <div class="bgdiv container ">
+            <div class="headname">
+                <h1 class="clname" style="margin-top: -50px;">{{context.rcode.roomname}}</h1>
+                <p style="color: rgb(164, 162, 162);">{{context.rcode.roomdesc}}</p>
+
+                <h6 align="right" class="date">{{context.rcode.date}}</h6>
+
+            </div>
+        </div>
+        <hr>
+    </section>
+
+
+
+
+
+
+
+
+
+
+    <div style="border-radius:10px ; margin-left: 50px;box-shadow:5px 5px 10px; position: static; background-color: rgb(194, 191, 194);width: 130px; height: 100px;">
+
+        <h5 id="copythis" style="padding-top:40px; padding-left: 15px; color: black;"><strong>{{context.rcode.Roomcode}}</strong> </h5>
+        <span align="right" onclick="myFunction()" style="padding-left: 90px;"><i  class="bi bi-clipboard"></i> </span>
+    </div>
+    <div class="container mt-3">
+
+
+
+
+
+
+
+        {%for mm in context.assment%}
+        <div class="card">
+            <div type="button" class=" card-header btn" data-bs-toggle="collapse" data-bs-target="#demo1{{mm.UniqCode}}">
+                <div class="float-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class=" bi bi-card-text" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                    <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+                  </svg>
+                </div>
+                <div class="ssss float-start">
+                    {{mm.assigname}}
+                </div>
+
+            </div>
+            <div id="demo1{{mm.UniqCode}}" class="collapse">
+                <div class="card-body "> <label for="floatingSelect">{{mm.assigdec}}<br> due date: {{mm.duedate}}</label></div>
+                <div class="card-footer">
+
+
+                    {{context.presntformate}} {{mm.duedate}} {% if context.presntformate > mm.duedate %} Due up {% else %} <a href="#" style="color: #fff; " data-bs-toggle="modal" data-bs-target="#myModal4">
+                        <button  type="button" class="btn btn-dark " id="submitassigment" data-bs-toggle="dropdown" style="border-radius:25px;" data-bs-toggle="modal" data-bs-target="#myModal4">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                 <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+               </svg>
+                <span class="cre"> Upload</span>
+                   </button></a>{%endif%}
+
+
+
+                </div>
+                {%for pd in context.upload%} {% if mm.UniqCode == pd.UniqCode %}
+                <div class="pdf">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" style="padding-top: 20px;" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16">
+      <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+      <path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+    
+    </svg>
+                    <h6> {{pd.Name}}</h6>
+                    <button type="button" class="btn btn-primary video-btn" data-toggle="modal" data-src="" data-target="#mpdfloader"> Load
+                </div>
+
+
+
+                <div class="modal fade" id="mpdfloader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+
+                            <div class="modal-body" tyle="height: 60% ;">
+
+                                <button type="button" class="close" data-dismiss="" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9" style="position:relative; height:90%;">
+                        <iframe src="https://drive.google.com/file/d/{{pd.pdf}}/preview" width="100%" id="video"></iframe>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    {%endif%} {% endfor %}
+    </div>
+
+    <div class="modal" id="myModal4">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h2 class="modal-title">Pdf</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{mm.UniqCode}}/addassigment" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Modal body -->
+                    <div class="container modal-body">
+
+                        <div class="input-group mb-3 input-group-lg">
+                            <span class="input-group-text">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                          <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                          <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                          <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                      </svg>
+                  </span>
+                            <input type="file" accept=".pdf" class="form-control" name="pdffiles" placeholder="upload" required multiple>
+                        </div>
+                        <br>
+
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer mb-9">
+                        <button type="submit" class="btn btn-danger" value="pdfupload" name="pdfupload" data-bs-dismiss="modal">submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+    <br> {% endfor %} {%for mm in context.ls%}
+    <div class="card">
+        <div type="button" class=" card-header btn" data-bs-toggle="collapse" data-bs-target="#demo1{{mm.UniqCode}}">
+            <div class="float-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                        <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
+                      </svg>
+            </div>
+            <div class="ssss float-start">
+                {{mm.Tpoicname}}
+            </div>
+
+        </div>
+        <div id="demo1{{mm.UniqCode}}" class="collapse">
+            <div class="card-body "> <label for="floatingSelect">{{mm.Tpoicdescrip}}</label></div>
+            <div class="card-footer">
+
+
+
+
+                {%for pd in context.pdf%} {% if mm.UniqCode == pd.UniqCode %}
+                <div class="pdf">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" style="padding-top: 20px;" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16">
+          <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+          <path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+        
+        </svg>
+                    <h6> {{pd.Name}}</h6>
+                    <button type="button" class="btn btn-primary video-btn" data-toggle="modal" data-src="" data-target="#mpdfloader"> Load
+                    </div>
+
+
+
+                    <div class="modal fade" id="mpdfloader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+
+                                <div class="modal-body" tyle="height: 60% ;">
+
+                                    <button type="button" class="close" data-dismiss="" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9" style="position:relative; height:90%;">
+                        <iframe src="https://drive.google.com/file/d/{{pd.pdf}}/preview" width="100%" id="video"></iframe>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    {%endif%} {% endfor %} {%for youtube in context.yt%} {% if mm.UniqCode == youtube.UniqCode %}
+    <div class="pdf" data-toggle="modal" data-target="#exampleModalLong1{{youtube.link}}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" style="padding-top: 20px;" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+              </svg>
+        <button type="button" class="btn btn-primary video-btn" data-toggle="modal" data-src="{{youtube.link}}" data-target="#myModal"> Load
+
+</button>
+    </div>
+
+
+
+
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+
+                <div class="modal-body">
+
+                    <button type="button" class="close" data-dismiss="
+                                                                               " aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    {%endif%} {% endfor %} {%for l in context.link%} {% if mm.UniqCode == l.UniqCode %}
+
+    <div class="pdf">
+        <a href="{{l.link}}" target="_blank"></a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" style="padding-top: 20px;" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+                <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+                <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+              </svg>
+
+        <button type="button" class="btn btn-primary video-btn"> Goto
+
+                        </button>
+        </a>
+    </div>
+
+
+    {% endif %} {% endfor %}
+    </div>
+    </div>
+
+
+
+
+
+    </div>
+    <br> {% endfor %}
+    </div>
+
+
+
+
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+</body>
+
+</html>

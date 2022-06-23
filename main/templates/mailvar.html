@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facileclass</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+
+</head>
+
+<body>
+    <main>
+        {% for error in messages %}
+        <div id="message2" class="alert alert-warning alert-dismissible " style="text-align: center;">
+            <a href="/" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{error}}</strong>
+        </div>
+        {% endfor %}
+        <div class="box">
+            <div class="inner-box">
+                <div class="forms-wrap">
+                    <form action="{% url 'activatea' %}" method="POST" autocomplete="off" class="sign-in-form">
+                        {% csrf_token %}
+                        <div class="logo">
+                            <img src="{% static '/img/logo.png' %}" alt="easyclass" />
+                            <h4>facileclass</h4>
+                        </div>
+
+                        <div class="heading">
+                            <h2>Welcome </h2>
+
+                        </div>
+
+                        <div class="actual-form">
+                            <div class="input-wrap">
+                                <input type="text" minlength="4" class="input-field" autocomplete="off" required name="U_name1" id="exampleInputEmail1" />
+                                <label>UserName</label>
+                            </div>
+
+                            <div class="input-wrap">
+                                <input type="password" minlength="4" class="input-field" autocomplete="off" required name="U_password1" id="exampleInputPassword1" />
+                                <label>Password</label>
+                            </div>
+                            <div class="input-wrap">
+                                <input type="password" minlength="4" class="input-field" autocomplete="off" required id="exampleInputPassword2" />
+                                <label>Confirm Password</label>
+                            </div>
+
+                            <input type="submit" name="teachersubmit" value="Submit" class="sign-btn" />
+                        </div>
+                    </form>
+
+
+                </div>
+
+                <div class="carousel">
+                    <div class="images-wrapper">
+                        <img src="{% static '/img/image1.png' %}" class="image img-1 show" alt="" />
+                        <img src="{% static '/img/image2.png' %}" class="image img-2" alt="" />
+                        <img src="{% static '/img/image3.png' %}" class="image img-3" alt="" />
+                    </div>
+
+                    <div class="text-slider">
+                        <div class="text-wrap">
+                            <div class="text-group">
+                                <h2>Bring all of your learning resources together in one place and manage many classes from a single location.</h2>
+                                <h2>sit amet, consectetur adipiscing</h2>
+                                <h2>elit, sed do eiusmod tempor</h2>
+                            </div>
+                        </div>
+
+                        <div class="bullets">
+                            <span class="active" data-value="1"></span>
+                            <span data-value="2"></span>
+                            <span data-value="3"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Javascript file -->
+
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>

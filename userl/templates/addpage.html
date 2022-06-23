@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Add Classroom|Facileclass</title>
+    <!-- <link rel="stylesheet" href="addClassroom.css"> -->
+    <link rel="stylesheet" href="{% static 'addClasroom.css' %}">
+
+
+</head>
+
+<body>
+    <div class="center">
+        <h1>Join ClassRoom</h1>
+        <form action="createc" method="post">
+            {% csrf_token %}
+            <div class="txt_field">
+                <input name="clsname" placeholder="Class Code" type="text" required>
+                <span></span>
+                <label>Class Code</label>
+            </div>
+
+            <input name="add" type="submit" value="Submit">
+        </form>
+    </div>
+
+</body>
+
+</html>
